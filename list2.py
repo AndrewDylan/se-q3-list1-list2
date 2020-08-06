@@ -5,7 +5,7 @@ Kenzie assignment: List2
 """
 # Your name, plus anyone who helped you with this assignment.
 # Give credit where credit is due.
-__author__ = "???"
+__author__ = "Andrew Canter"
 
 # Copyright 2010 Google Inc.
 # Licensed under the Apache License, Version 2.0
@@ -26,10 +26,20 @@ __author__ = "???"
 # You may create a new list or modify the passed in list.
 # Hint: Don't use set()
 
+from itertools import zip_longest
 
 def remove_adjacent(nums):
-    # your code here
-    return
+    newList = []
+    lastLetter = 0
+
+    for x in range(len(nums)):
+        if nums[x] == lastLetter:
+            lastLetter = nums[x]
+            continue
+        newList.append(nums[x])
+        lastLetter = nums[x]
+    
+    return newList
 
 
 # E. zip_merge
@@ -43,8 +53,12 @@ def remove_adjacent(nums):
 
 
 def zip_merge(list1, list2):
-    # your code here
-    return
+    newList = []
+
+    for a , b in zip(list1, list2):
+        newList.append(a + b)
+
+    return newList
 
 
 # F. empty_filter
@@ -57,8 +71,8 @@ def zip_merge(list1, list2):
 
 
 def empty_filter(list1):
-    # your code here
-    return
+    newList = list(filter(None, list1))
+    return  newList
 
 
 # G. linear_merge
@@ -73,8 +87,20 @@ def empty_filter(list1):
 
 
 def linear_merge(list1, list2):
-    # your code here
-    return
+    newList = []
+    for a,b in zip_longest(list1,list2): # Recieved help with zip_longest from https://realpython.com/python-zip-function/#:~:text=Python's%20zip()%20function%20is,%2C%20sets%2C%20and%20so%20on.
+        if a == None:
+            newList.append(b)
+        elif b == None:
+            newList.append(a)
+        elif a < b:
+            newList.append(a)
+            newList.append(b)
+        else:
+            newList.append(b)
+            newList.append(a)
+
+    return newList
 
 
 # Provided simple test() function used in main() to print
